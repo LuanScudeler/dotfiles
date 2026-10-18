@@ -1,0 +1,11 @@
+# Copy pwd to clipboard (WSL)
+
+alias cpwd="pwd | tr -d '\n' | pbcopy"
+
+# Open Windows Explorer
+
+alias explorer="explorer.exe"
+
+# Open the current directory in Windows Explorer
+
+alias winpath="explorer.exe \$(wslpath -w .)"

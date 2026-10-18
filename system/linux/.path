@@ -1,0 +1,22 @@
+# Homebrew (Linuxbrew) environment
+#
+# This runs on Linux/Ubuntu (incl. WSL). It re-establishes the Homebrew
+# environment that `make` installs, so `brew` stays on PATH after the
+# dotfiles have been linked over ~/.bashrc.
+
+if is-executable brew; then
+  eval "$(brew shellenv)"
+elif [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Prepend Homebrew and user tool directories (if they exist)
+
+prepend-path "$HOMEBREW_PREFIX/bin"
+prepend-path "$HOMEBREW_PREFIX/sbin"
+prepend-path "$HOME/.local/bin"
+prepend-path "$HOME/.bun/bin"
+prepend-path "$HOME/.local/share/pnpm"
+
+# Java (OpenJDK 25 LTS) — keg-only, so its bin isn't linked into $HOMEBREW_PREFIX/bin
+prepend-path "$HOMEBREW_PREFIX/opt/openjdk@25/bin"

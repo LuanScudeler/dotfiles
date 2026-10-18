@@ -1,7 +1,8 @@
 # Start with system path
 # Retrieve it from getconf, otherwise it's just current $PATH
+# Only reset on macOS; on Linux this would drop Homebrew and interop paths.
 
-is-executable getconf && PATH=$($(command -v getconf) PATH)
+is-macos && is-executable getconf && PATH=$($(command -v getconf) PATH)
 
 prepend-path() {
   [ -d $1 ] && PATH="$1:$PATH"
@@ -16,7 +17,7 @@ prepend-path "/usr/sbin"
 prepend-path "/usr/local/bin"
 prepend-path "$DOTFILES_DIR/bin"
 
-is-macos && . "$DOTFILES_DIR/system/macos/.path"
+is-ubuntu && . "$DOTFILES_DIR/system/linux/.path"
 
 # Remove duplicates
 PATH=$(echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')

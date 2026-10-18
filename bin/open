@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# WSL: open files/URLs with the Windows default handler
+
+if is-executable wslview; then
+  exec wslview "$@"
+fi
+
+for TARGET in "$@"; do
+  case "$TARGET" in
+    http://*|https://*|mailto:*)
+      cmd.exe /c start "" "$TARGET" >/dev/null 2>&1
+      ;;
+    *)
+      explorer.exe "$(wslpath -w "$TARGET")" >/dev/null 2>&1
+      ;;
+  esac
+done

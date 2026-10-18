@@ -1,8 +1,7 @@
 # core/dotfiles
 brew "bats-core"
 brew "coreutils"
-brew "duti"
-brew "dockutil"
+brew "mise"
 brew "nano"
 brew "parallel"
 brew "stow"
@@ -41,12 +40,14 @@ brew "ripgrep"
 
 # languages/tools
 brew "cmake"
+brew "dotnet"
 brew "gh"
+brew "git"
+brew "git-extras"
 brew "make"
-brew "n"
+brew "openjdk@25"
 brew "python"
 brew "ruby"
-brew "rust"
 brew "shellcheck"
 
 # media
@@ -57,5 +58,5 @@ brew "uni"
 brew "webp"
 
 # misc
+brew "bind"
 brew "grip"
-brew "mole"

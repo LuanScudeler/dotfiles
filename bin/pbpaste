@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# WSL: paste the Windows clipboard to stdout
+
+powershell.exe -NoProfile -Command "Get-Clipboard -Raw" | tr -d '\r'

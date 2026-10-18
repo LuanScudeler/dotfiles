@@ -1,0 +1,5 @@
+# Dev: open a directory (or the current one) in the editor
+
+d() {
+  $VISUAL ${1:-.}
+}

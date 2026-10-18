@@ -1,10 +1,9 @@
 [user]
-	name = Lars Kappert
-	email = lars@webpro.nl
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDJg/REFtUFoSB/oS9Q/nHR4c+IDYzP0ktzj/yD0l4
+	name = luanscudeler
+	email = luanscudeler@gmail.com
 
 [github]
-	user = webpro
+	user = LuanScudeler
 
 [core]
 	excludesfile = ~/.config/git/ignore
@@ -17,7 +16,7 @@
 	ignorecase = false
 
 [credential]
-	helper = osxkeychain
+	helper = cache
 
 [pull]
 	rebase = true
@@ -118,13 +117,7 @@
 
 [advice]
 	detachedHead = false
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-	allowedSignersFile = ~/.config/git/allowed_signers
 [commit]
-	gpgsign = true
+	gpgsign = false
 [credential "https://github.com"]
-	helper =
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !gh auth git-credential

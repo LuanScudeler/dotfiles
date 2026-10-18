@@ -2,12 +2,11 @@
 
 [ -z "$PS1" ] && return
 
-# Resolve DOTFILES_DIR (assuming ~/.dotfiles on distros without readlink and/or $BASH_SOURCE/$0)
-CURRENT_SCRIPT=$BASH_SOURCE
+# Resolve DOTFILES_DIR from the (possibly symlinked) runcom file
+CURRENT_SCRIPT=${BASH_SOURCE[0]:-$0}
 
-if [[ -n $CURRENT_SCRIPT && -x readlink ]]; then
-  SCRIPT_PATH=$(readlink -n $CURRENT_SCRIPT)
-  DOTFILES_DIR="${PWD}/$(dirname $(dirname $SCRIPT_PATH))"
+if SCRIPT_PATH=$(readlink -f "$CURRENT_SCRIPT" 2>/dev/null) && [ -n "$SCRIPT_PATH" ]; then
+  DOTFILES_DIR="$(dirname "$(dirname "$SCRIPT_PATH")")"
 elif [ -d "$HOME/.dotfiles" ]; then
   DOTFILES_DIR="$HOME/.dotfiles"
 elif [ -d "$HOME/dotfiles" ]; then
@@ -26,14 +25,21 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 [ -f "$DOTFILES_DIR/local/.profile" ] && . "$DOTFILES_DIR/local/.profile"
 [ -f "$DOTFILES_DIR/local/.env" ] && . "$DOTFILES_DIR/local/.env"
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,function_*,n,path,env,alias,fzf,grep,prompt,completion,fix,pnpm,zoxide}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,function_*,path,env,alias,fzf,grep,prompt,completion,fix,pnpm,zoxide}; do
   . "$DOTFILE"
 done
 
-if is-macos; then
-  for DOTFILE in "$DOTFILES_DIR"/system/macos/.{env,alias,function}; do
+if is-ubuntu; then
+  for DOTFILE in "$DOTFILES_DIR"/system/linux/.{env,alias,function}; do
     . "$DOTFILE"
   done
+fi
+
+# mise: language runtime version manager (Node, etc.). Activate last so its
+# PROMPT_COMMAND hook is not clobbered by system/.prompt, which sets PROMPT_COMMAND.
+
+if is-executable mise; then
+  eval "$(mise activate bash)"
 fi
 
 # Set LSCOLORS

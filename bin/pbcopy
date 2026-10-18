@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# WSL: copy stdin to the Windows clipboard
+# Provides a `pbcopy` for configs shared with macOS (.fzf, tmux.conf).
+
+exec "$(command -v clip.exe || echo /mnt/c/Windows/System32/clip.exe)"

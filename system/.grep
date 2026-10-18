@@ -1,12 +1,8 @@
-# Tell grep to highlight matches
+# Tell grep to highlight matches and avoid VCS folders
 
-if is-supported "grep --color a <<< a"; then
-  GREP_OPTIONS+=" --color=auto"
-fi
+GREP_OPTIONS="--color=auto"
 
-# Avoid VCS folders
-
-if is-supported "echo | grep --exclude-dir=.cvs ''"; then
+if is-supported "echo | grep --exclude-dir=.git ''"; then
   for PATTERN in .cvs .git .hg .svn; do
     GREP_OPTIONS+=" --exclude-dir=$PATTERN"
   done
@@ -18,4 +14,5 @@ fi
 
 unset PATTERN
 alias grep="grep $GREP_OPTIONS"
+unset GREP_OPTIONS
 export GREP_COLORS='mt=1;32'
