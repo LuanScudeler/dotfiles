@@ -2,17 +2,14 @@
 fast-cli
 fkill-cli
 get-port-cli
-gtop
 local-web-server
 npm
 npm-check-updates
 pnpm
 prettier
 release-it
-remark-cli
 remark-preset-webpro
 svgo
 tldr
 tsx
-underscore-cli
 yarn
